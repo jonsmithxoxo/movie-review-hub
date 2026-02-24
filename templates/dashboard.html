@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="dash-wrapper">
+
+  <!-- HERO SECTION -->
+  <section class="dash-hero">
+    <div class="dash-hero-content">
+
+      <h1>
+        Welcome back, <span class="highlight">{{ username }}</span> 👋
+      </h1>
+
+      <p class="hero-sub">
+        Here's a snapshot of your AI-powered review journey.
+      </p>
+
+      <div class="dash-actions">
+        <a href="{{ url_for('home') }}" class="dash-btn primary">
+          Browse Movies
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- SPACING DIVIDER -->
+  <div class="section-divider"></div>
+
+
+  <!-- REVIEW HISTORY -->
+  <section class="dash-reviews">
+
+    <div class="section-header">
+      <div>
+        <h2>Your Review History</h2>
+        <p class="section-sub">
+          Track your past reviews and sentiment trends.
+        </p>
+      </div>
+
+      <span class="review-count">
+        {{ reviews|length if reviews else 0 }} Review(s)
+      </span>
+    </div>
+
+
+    {% if reviews and reviews|length > 0 %}
+
+      <div class="review-grid">
+
+        {% for review in reviews %}
+        <div class="review-card">
+
+          <div class="review-header">
+            <h3>{{ review.movie_title }}</h3>
+            <span class="review-date">
+              {{ review.created_at }}
+            </span>
+          </div>
+
+          <p class="review-text">
+            {{ review.review_text }}
+          </p>
+
+          <div class="review-footer">
+
+            <!-- Stars -->
+            <div class="stars">
+              {% set stars = review.rating // 2 %}
+              {% for i in range(1,6) %}
+                <span class="star {% if i <= stars %}on{% endif %}">★</span>
+              {% endfor %}
+            </div>
+
+            <!-- Rating + Sentiment -->
+            <div class="rating-meta">
+              <strong>{{ review.rating }} / 10</strong>
+              <span class="sentiment {{ review.sentiment|lower }}">
+                • {{ review.sentiment }}
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+    {% else %}
+
+      <div class="no-reviews">
+        <div class="empty-icon">🎞️</div>
+        <h3>No reviews yet</h3>
+        <p>Start reviewing movies to build your sentiment history.</p>
+        <a href="{{ url_for('home') }}" class="dash-btn primary">
+          Browse Movies
+        </a>
+      </div>
+
+    {% endif %}
+
+  </section>
+
+</div>
+
+{% endblock %}

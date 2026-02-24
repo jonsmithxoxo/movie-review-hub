@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="auth-bg">
+  <div class="auth-noise"></div>
+
+  <div class="auth-shell">
+    <div class="auth-card">
+      
+      <div class="auth-header">
+        <h1>Create Account</h1>
+        <p>Join Movie Hub in seconds</p>
+      </div>
+
+      <form class="auth-form" method="POST" action="{{ url_for('signup') }}">
+        
+        <div class="input-group">
+          <input 
+            type="text" 
+            name="username" 
+            id="username"
+            required 
+            placeholder=" "
+            autocomplete="username"
+          >
+          <label for="username">Username</label>
+        </div>
+
+        <div class="input-group">
+          <input 
+            type="email" 
+            name="email" 
+            id="email"
+            required 
+            placeholder=" "
+            autocomplete="email"
+          >
+          <label for="email">Email address</label>
+        </div>
+
+        <div class="input-group">
+          <input 
+            type="password" 
+            name="password" 
+            id="password"
+            required 
+            placeholder=" "
+            autocomplete="new-password"
+          >
+          <label for="password">Password</label>
+        </div>
+
+        <button type="submit" class="auth-primary">
+          Create account
+        </button>
+
+      </form>
+
+      <div class="auth-meta">
+        <span>Already registered?</span>
+        <a href="{{ url_for('signin') }}">Sign in</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
