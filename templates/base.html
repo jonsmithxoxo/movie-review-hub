@@ -24,6 +24,9 @@
         <a href="{{ url_for('signin') }}">Sign In</a>
         <a href="{{ url_for('signup') }}">Sign Up</a>
     {% endif %}
+    {% if current_user.is_admin %}
+<a href="{{ url_for('admin_dashboard') }}">Admin</a>
+{% endif %}
 
   </div>
 </nav>

@@ -926,3 +926,483 @@ body {
     font-size: 40px;
     margin-bottom: 15px;
 }
+/* ===== MOVIE GRID ===== */
+
+.movie-grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:30px;
+margin-top:30px;
+
+}
+
+.movie-card{
+
+text-decoration:none;
+color:white;
+transition:.35s;
+
+}
+
+.poster-wrap{
+
+position:relative;
+border-radius:14px;
+overflow:hidden;
+
+}
+
+.poster-wrap img{
+
+width:100%;
+height:320px;
+object-fit:cover;
+transition:.4s;
+
+}
+
+.overlay{
+
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.75);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+font-weight:600;
+letter-spacing:.5px;
+transition:.35s;
+
+}
+
+.poster-wrap:hover img{
+transform:scale(1.08);
+}
+
+.poster-wrap:hover .overlay{
+opacity:1;
+}
+
+.movie-card h3{
+
+margin-top:10px;
+font-size:14px;
+opacity:.85;
+
+}
+
+/* ===== MOVIE DASHBOARD ===== */
+
+.movie-dashboard{
+
+display:grid;
+grid-template-columns:360px 1fr;
+gap:40px;
+margin-top:40px;
+
+}
+
+.poster{
+
+width:100%;
+border-radius:16px;
+
+}
+
+.plot{
+
+opacity:.8;
+line-height:1.6;
+margin:15px 0;
+
+}
+
+.rating-box{
+
+background:rgba(255,255,255,.05);
+padding:20px;
+border-radius:16px;
+margin-bottom:25px;
+
+}
+
+.review-panel{
+
+background:rgba(255,255,255,.05);
+padding:25px;
+border-radius:16px;
+
+}
+
+.review-form textarea{
+
+width:100%;
+height:140px;
+padding:16px;
+border-radius:12px;
+border:none;
+background:#020617;
+color:white;
+resize:none;
+
+}
+
+.review-btn{
+
+margin-top:15px;
+padding:12px 25px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#ffd166,#ffb703);
+font-weight:600;
+cursor:pointer;
+
+}
+
+.review-btn:hover{
+transform:scale(1.05);
+}
+
+@media(max-width:900px){
+
+.movie-dashboard{
+grid-template-columns:1fr;
+}
+
+.poster{
+max-width:280px;
+}
+
+}
+/* =====================================
+   SIGNUP PAGE STRUCTURED LAYOUT (APPENDED)
+===================================== */
+
+.signup-grid{
+
+display:flex;
+flex-direction:column;
+gap:18px;
+
+width:100%;
+max-width:420px;
+
+margin:auto;
+
+}
+
+/* inputs */
+
+.signup-grid input,
+.signup-grid select{
+
+width:100%;
+padding:14px 16px;
+
+border-radius:12px;
+
+border:1px solid rgba(255,255,255,.18);
+
+background:rgba(255,255,255,.08);
+
+color:white;
+
+font-size:14px;
+
+transition:.2s;
+
+}
+
+.signup-grid input:focus,
+.signup-grid select:focus{
+
+outline:none;
+
+border-color:#8ab4ff;
+
+box-shadow:0 0 0 3px rgba(138,180,255,.25);
+
+}
+
+/* captcha alignment */
+
+.signup-grid .captcha-wrap{
+
+display:flex;
+justify-content:center;
+
+margin-top:10px;
+
+}
+
+/* button */
+
+.signup-grid button{
+
+margin-top:10px;
+
+padding:14px;
+
+border-radius:14px;
+
+border:none;
+
+background:linear-gradient(135deg,#ffd166,#ffb703);
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.signup-grid button:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 12px 30px rgba(255,183,3,.4);
+
+}
+
+/* responsive */
+
+@media(max-width:520px){
+
+.signup-grid{
+
+max-width:95%;
+
+}
+
+}
+/* ============================
+   BROWSE HERO SECTION
+============================ */
+
+.browse-hero{
+
+margin:40px 0 40px 0;
+
+max-width:700px;
+
+}
+
+.browse-hero h1{
+
+font-size:34px;
+margin-bottom:10px;
+
+}
+
+.browse-hero p{
+
+opacity:.7;
+margin-bottom:20px;
+
+}
+
+/* SEARCH BAR */
+
+.search-bar{
+
+display:flex;
+gap:10px;
+
+}
+
+.search-bar input{
+
+flex:1;
+
+padding:14px 18px;
+
+border-radius:14px;
+
+border:1px solid rgba(255,255,255,.18);
+
+background:rgba(255,255,255,.08);
+
+color:white;
+
+}
+
+.search-bar button{
+
+padding:14px 22px;
+
+border:none;
+
+border-radius:12px;
+
+background:linear-gradient(135deg,#ffd166,#ffb703);
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+/* MOVIE GRID */
+
+.movie-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(220px,1fr));
+
+gap:30px;
+
+margin-top:30px;
+
+}
+
+.movie-card{
+
+text-decoration:none;
+color:white;
+
+}
+
+.movie-card img{
+
+width:100%;
+height:320px;
+
+object-fit:cover;
+
+border-radius:14px;
+
+transition:.3s;
+
+}
+
+.movie-card img:hover{
+
+transform:scale(1.05);
+
+}
+
+.movie-card h3{
+
+margin-top:8px;
+font-size:14px;
+opacity:.9;
+
+}
+.admin-layout {
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    background: #0b1220;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+}
+
+.sidebar h2 {
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    color: #aaa;
+    padding: 10px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.sidebar a:hover {
+    color: #fff;
+    background: #1c2a4a;
+    border-radius: 8px;
+}
+
+/* MAIN */
+.main-content {
+    margin-left: 240px;
+    padding: 30px;
+    width: 100%;
+}
+
+/* HEADER */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+/* STATS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background: #111c33;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.stat-card p {
+    font-size: 28px;
+    color: gold;
+}
+
+/* TABLE */
+.table-section {
+    margin-top: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: #1a2745;
+}
+
+tr:nth-child(even) {
+    background: #0f1b33;
+}
+
+/* BUTTON */
+.delete-btn {
+    background: red;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+/* BADGE */
+.badge {
+    background: gold;
+    padding: 4px 8px;
+    border-radius: 5px;
+    color: black;
+}
+
+/* INSIGHT */
+.insight-box {
+    margin-top: 30px;
+    padding: 20px;
+    background: linear-gradient(45deg, purple, blue);
+    border-radius: 12px;
+    color: white;
+}

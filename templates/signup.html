@@ -1,68 +1,144 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <div class="auth-bg">
-  <div class="auth-noise"></div>
+<div class="auth-noise"></div>
 
-  <div class="auth-shell">
-    <div class="auth-card">
-      
-      <div class="auth-header">
-        <h1>Create Account</h1>
-        <p>Join Movie Hub in seconds</p>
-      </div>
+<div class="auth-shell">
 
-      <form class="auth-form" method="POST" action="{{ url_for('signup') }}">
-        
-        <div class="input-group">
-          <input 
-            type="text" 
-            name="username" 
-            id="username"
-            required 
-            placeholder=" "
-            autocomplete="username"
-          >
-          <label for="username">Username</label>
-        </div>
+<div class="auth-card">
 
-        <div class="input-group">
-          <input 
-            type="email" 
-            name="email" 
-            id="email"
-            required 
-            placeholder=" "
-            autocomplete="email"
-          >
-          <label for="email">Email address</label>
-        </div>
-
-        <div class="input-group">
-          <input 
-            type="password" 
-            name="password" 
-            id="password"
-            required 
-            placeholder=" "
-            autocomplete="new-password"
-          >
-          <label for="password">Password</label>
-        </div>
-
-        <button type="submit" class="auth-primary">
-          Create account
-        </button>
-
-      </form>
-
-      <div class="auth-meta">
-        <span>Already registered?</span>
-        <a href="{{ url_for('signin') }}">Sign in</a>
-      </div>
-
-    </div>
-  </div>
+<div class="auth-header">
+<h1>Create Account</h1>
+<p>Join MovieHub and start reviewing movies</p>
 </div>
+
+<form method="POST" class="signup-grid">
+
+<input
+type="text"
+name="username"
+placeholder="Username"
+required
+>
+
+<input
+type="email"
+name="email"
+placeholder="Email Address"
+required
+>
+
+<input
+type="password"
+name="password"
+placeholder="Password"
+required
+>
+
+<input
+type="number"
+name="age"
+placeholder="Age"
+required
+>
+
+<select name="gender" required>
+
+<option value="">Select Gender</option>
+
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+
+</select>
+
+<select name="country" id="countrySelect" required>
+
+<option value="">Select Country</option>
+
+</select>
+
+<div class="captcha-wrap">
+
+<div class="g-recaptcha"
+data-sitekey="6LfRGncsAAAAAMg2-VZ1jAObWOoy-7c6gvWWkkJr">
+</div>
+
+</div>
+
+<button type="submit">
+
+Create Account
+
+</button>
+
+</form>
+
+<div class="auth-meta">
+
+<span>Already have an account?</span>
+
+<a href="{{ url_for('signin') }}">Sign in</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* FULL COUNTRY LIST */
+
+const countries=[
+
+"Afghanistan","Albania","Algeria","Andorra","Angola",
+"Argentina","Armenia","Australia","Austria",
+"Azerbaijan","Bahamas","Bahrain","Bangladesh","Belgium",
+"Belize","Bolivia","Brazil","Bulgaria","Cambodia",
+"Cameroon","Canada","Chile","China","Colombia",
+"Croatia","Cuba","Cyprus","Czech Republic",
+"Denmark","Dominican Republic","Ecuador","Egypt",
+"El Salvador","Estonia","Finland","France","Germany",
+"Ghana","Greece","Guatemala","Haiti","Honduras",
+"Hungary","Iceland","India","Indonesia","Iran",
+"Iraq","Ireland","Israel","Italy","Jamaica",
+"Japan","Jordan","Kazakhstan","Kenya","Kuwait",
+"Laos","Latvia","Lebanon","Lithuania","Luxembourg",
+"Malaysia","Maldives","Mexico","Morocco","Myanmar",
+"Nepal","Netherlands","New Zealand","Nigeria",
+"North Korea","Norway","Oman","Pakistan","Panama",
+"Paraguay","Peru","Philippines","Poland","Portugal",
+"Qatar","Romania","Russia","Saudi Arabia","Serbia",
+"Singapore","Slovakia","Slovenia","South Africa",
+"South Korea","Spain","Sri Lanka","Sweden",
+"Switzerland","Taiwan","Thailand","Turkey",
+"Ukraine","United Arab Emirates",
+"United Kingdom","United States",
+"Uruguay","Uzbekistan","Venezuela","Vietnam",
+"Yemen","Zambia","Zimbabwe"
+
+];
+
+const dropdown=document.getElementById("countrySelect");
+
+countries.forEach(country=>{
+
+let option=document.createElement("option");
+
+option.value=country;
+option.text=country;
+
+dropdown.appendChild(option);
+
+});
+
+</script>
 
 {% endblock %}

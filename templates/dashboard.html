@@ -1,109 +1,378 @@
 {% extends "base.html" %}
 {% block content %}
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+background:#020617;
+color:white;
+font-family:system-ui;
+}
+
+/* MAIN */
+
+.dash-wrapper{
+max-width:1500px;
+margin:auto;
+padding:40px;
+}
+
+/* HERO */
+
+.dash-hero{
+background:
+linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.9)),
+url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba");
+background-size:cover;
+background-position:center;
+padding:80px;
+border-radius:16px;
+margin-bottom:40px;
+}
+
+.dash-hero h1{
+font-size:40px;
+font-weight:700;
+}
+
+.highlight{
+color:#facc15;
+}
+
+/* GRID */
+
+.dashboard-grid{
+display:grid;
+grid-template-columns:1fr 2fr 1fr;
+gap:25px;
+margin-bottom:40px;
+}
+
+/* PROFILE */
+
+.profile-card{
+background:#0f172a;
+padding:25px;
+border-radius:12px;
+}
+
+.profile-card h3{
+margin-bottom:15px;
+}
+
+.profile-item{
+margin-bottom:10px;
+color:#cbd5f5;
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-bottom:25px;
+}
+
+.stat-card{
+background:#1e293b;
+padding:20px;
+border-radius:12px;
+text-align:center;
+transition:.3s;
+}
+
+.stat-card:hover{
+transform:translateY(-5px);
+background:#334155;
+}
+
+.stat-number{
+font-size:28px;
+font-weight:700;
+color:#facc15;
+}
+
+/* ACTIVITY */
+
+.activity-card{
+background:#0f172a;
+padding:25px;
+border-radius:12px;
+}
+
+.activity-item{
+border-bottom:1px solid #1e293b;
+padding:10px 0;
+font-size:14px;
+}
+
+/* TRENDING MOVIES */
+
+.trending{
+margin-bottom:40px;
+}
+
+.trending-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+gap:20px;
+}
+
+.movie-card{
+background:#0f172a;
+padding:10px;
+border-radius:10px;
+transition:.3s;
+text-align:center;
+}
+
+.movie-card:hover{
+transform:scale(1.05);
+background:#1e293b;
+}
+
+.movie-card img{
+width:100%;
+border-radius:6px;
+margin-bottom:10px;
+}
+
+/* REVIEWS */
+
+.review-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+gap:20px;
+}
+
+.review-card{
+background:#0f172a;
+padding:20px;
+border-radius:12px;
+transition:.3s;
+}
+
+.review-card:hover{
+transform:translateY(-5px);
+background:#1e293b;
+}
+
+.review-header{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+}
+
+.review-text{
+font-size:14px;
+color:#cbd5f5;
+margin-bottom:10px;
+}
+
+.sentiment.positive{color:#22c55e;}
+.sentiment.neutral{color:#facc15;}
+.sentiment.negative{color:#ef4444;}
+
+</style>
+
+
+
 <div class="dash-wrapper">
 
-  <!-- HERO SECTION -->
-  <section class="dash-hero">
-    <div class="dash-hero-content">
+<!-- HERO -->
 
-      <h1>
-        Welcome back, <span class="highlight">{{ username }}</span> 👋
-      </h1>
+<section class="dash-hero">
 
-      <p class="hero-sub">
-        Here's a snapshot of your AI-powered review journey.
-      </p>
+<h1>
+Welcome back,
+<span class="highlight">{{ current_user.username }}</span> 👋
+</h1>
 
-      <div class="dash-actions">
-        <a href="{{ url_for('home') }}" class="dash-btn primary">
-          Browse Movies
-        </a>
-      </div>
+<p>Your AI movie analytics dashboard</p>
 
-    </div>
-  </section>
+<a href="{{ url_for('home') }}" class="dash-btn primary">
+Browse Movies
+</a>
+
+</section>
 
 
-  <!-- SPACING DIVIDER -->
-  <div class="section-divider"></div>
 
+<!-- GRID -->
 
-  <!-- REVIEW HISTORY -->
-  <section class="dash-reviews">
+<div class="dashboard-grid">
 
-    <div class="section-header">
-      <div>
-        <h2>Your Review History</h2>
-        <p class="section-sub">
-          Track your past reviews and sentiment trends.
-        </p>
-      </div>
+<!-- PROFILE -->
 
-      <span class="review-count">
-        {{ reviews|length if reviews else 0 }} Review(s)
-      </span>
-    </div>
+<div class="profile-card">
 
+<h3>User Profile</h3>
 
-    {% if reviews and reviews|length > 0 %}
-
-      <div class="review-grid">
-
-        {% for review in reviews %}
-        <div class="review-card">
-
-          <div class="review-header">
-            <h3>{{ review.movie_title }}</h3>
-            <span class="review-date">
-              {{ review.created_at }}
-            </span>
-          </div>
-
-          <p class="review-text">
-            {{ review.review_text }}
-          </p>
-
-          <div class="review-footer">
-
-            <!-- Stars -->
-            <div class="stars">
-              {% set stars = review.rating // 2 %}
-              {% for i in range(1,6) %}
-                <span class="star {% if i <= stars %}on{% endif %}">★</span>
-              {% endfor %}
-            </div>
-
-            <!-- Rating + Sentiment -->
-            <div class="rating-meta">
-              <strong>{{ review.rating }} / 10</strong>
-              <span class="sentiment {{ review.sentiment|lower }}">
-                • {{ review.sentiment }}
-              </span>
-            </div>
-
-          </div>
-
-        </div>
-        {% endfor %}
-
-      </div>
-
-    {% else %}
-
-      <div class="no-reviews">
-        <div class="empty-icon">🎞️</div>
-        <h3>No reviews yet</h3>
-        <p>Start reviewing movies to build your sentiment history.</p>
-        <a href="{{ url_for('home') }}" class="dash-btn primary">
-          Browse Movies
-        </a>
-      </div>
-
-    {% endif %}
-
-  </section>
+<div class="profile-item"><strong>Username:</strong> {{ current_user.username }}</div>
+<div class="profile-item"><strong>Email:</strong> {{ current_user.email }}</div>
+<div class="profile-item"><strong>Age:</strong> {{ current_user.age }}</div>
+<div class="profile-item"><strong>Gender:</strong> {{ current_user.gender }}</div>
+<div class="profile-item"><strong>Country:</strong> {{ current_user.country }}</div>
+<div class="profile-item"><strong>Joined:</strong> {{ current_user.created_at.strftime("%d %b %Y") }}</div>
 
 </div>
+
+
+
+<!-- STATS + CHART -->
+
+<div>
+
+<div class="stats">
+
+<div class="stat-card">
+<div class="stat-number">{{ reviews|length }}</div>
+<div>Total Reviews</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">{{ reviews|length }}</div>
+<div>Movies Reviewed</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">
+{% if reviews %}
+{{ (reviews|map(attribute='rating')|sum // reviews|length) }}
+{% else %}0{% endif %}
+</div>
+<div>Average Rating</div>
+</div>
+
+</div>
+
+<canvas id="sentimentChart"></canvas>
+
+</div>
+
+
+
+<!-- ACTIVITY -->
+
+<div class="activity-card">
+
+<h3>Activity Timeline</h3>
+
+<div class="activity-item">
+{{ current_user.created_at.strftime("%d %b %Y") }} — Account Created
+</div>
+
+{% for review in reviews %}
+<div class="activity-item">
+{{ review.created_at }} — Review posted
+</div>
+{% endfor %}
+
+</div>
+
+</div>
+
+
+
+<!-- TRENDING MOVIES -->
+
+<section class="trending">
+
+<h2>Trending Movies</h2>
+
+<div class="trending-grid">
+
+<div class="movie-card">
+<img src="https://m.media-amazon.com/images/I/71niXI3lxlL._AC_SY679_.jpg">
+<p>Inception</p>
+</div>
+
+<div class="movie-card">
+<img src="https://m.media-amazon.com/images/I/51EG732BV3L.jpg">
+<p>The Matrix</p>
+</div>
+
+<div class="movie-card">
+<img src="https://m.media-amazon.com/images/I/81p+xe8cbnL._AC_SY679_.jpg">
+<p>Interstellar</p>
+</div>
+
+<div class="movie-card">
+<img src="https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg">
+<p>Dark Knight</p>
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- REVIEW HISTORY -->
+
+<section>
+
+<h2>Your Reviews</h2>
+
+<div class="review-grid">
+
+{% for review in reviews %}
+
+<div class="review-card">
+
+<div class="review-header">
+<h3>{{ review.movie_title }}</h3>
+<span>{{ review.created_at }}</span>
+</div>
+
+<p class="review-text">
+{{ review.review_text }}
+</p>
+
+<strong>{{ review.rating }}/10</strong>
+
+<span class="sentiment {{ review.sentiment|lower }}">
+• {{ review.sentiment }}
+</span>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+</div>
+
+
+
+<script>
+
+const ctx=document.getElementById('sentimentChart');
+
+const positive={{ reviews|selectattr("sentiment","equalto","Positive")|list|length }};
+const neutral={{ reviews|selectattr("sentiment","equalto","Neutral")|list|length }};
+const negative={{ reviews|selectattr("sentiment","equalto","Negative")|list|length }};
+
+new Chart(ctx,{
+type:'doughnut',
+data:{
+labels:['Positive','Neutral','Negative'],
+datasets:[{
+data:[positive,neutral,negative],
+backgroundColor:[
+'#22c55e',
+'#facc15',
+'#ef4444'
+]
+}]
+}
+});
+
+</script>
 
 {% endblock %}

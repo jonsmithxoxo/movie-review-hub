@@ -3,79 +3,146 @@
 
 <a href="{{ url_for('home') }}" class="back-btn">← Back</a>
 
+<!-- =============================
+     HERO SECTION (NEW APPENDED)
+============================= -->
+
+<section class="browse-hero">
+
+<h1>Discover Movies Instantly</h1>
+
+<p>
+Search any movie, explore AI-powered reviews, and discover cinematic masterpieces.
+</p>
+
 <form class="search" method="get" action="{{ url_for('home') }}">
-  <input name="q" value="{{query}}" placeholder="Search movies">
+
+<input
+name="q"
+value="{{ query }}"
+placeholder="Search movies like Batman, Matrix, Interstellar..."
+>
+
+<button type="submit">
+Search
+</button>
+
 </form>
+
+</section>
+
+<!-- =============================
+     MOVIE DETAIL VIEW
+============================= -->
 
 {% if movie %}
 
 <section class="detail">
-  <img src="{{movie.Poster}}">
 
-  <div class="panel">
-    <h1>{{movie.Title}}</h1>
-    <p>{{movie.Plot}}</p>
+<img src="{{movie.Poster}}">
 
-    <!-- AGGREGATED RATING -->
-    {% if aggregate %}
-      <div class="stars">
-        {% for i in range(1,6) %}
-          <span class="star {% if i<=aggregate[1] %}on{% endif %}">★</span>
-        {% endfor %}
-        <div class="meta">
-          <strong>{{aggregate[0]}} / 10</strong> • 
-          {{aggregate[2]}} • 
-          {{aggregate[3]}} Review(s)
-        </div>
-      </div>
-    {% else %}
-      <div class="meta">No reviews yet</div>
-    {% endif %}
+<div class="panel">
 
-    <!-- REVIEW FORM -->
-    {% if current_user.is_authenticated %}
-      <form method="post">
-        <textarea 
-          name="review" 
-          required 
-          placeholder="Write your review...">
-        </textarea>
-        <button type="submit">Submit Review</button>
-      </form>
-    {% else %}
-      <p>Please <a href="{{ url_for('signin') }}">sign in</a> to write a review.</p>
-    {% endif %}
+<h1>{{movie.Title}}</h1>
 
-  </div>
-</section>
+<p>{{movie.Plot}}</p>
+
+<!-- AGGREGATED RATING -->
+
+{% if aggregate %}
+
+<div class="stars">
+
+{% for i in range(1,6) %}
+
+<span class="star {% if i<=aggregate[1] %}on{% endif %}">★</span>
+
+{% endfor %}
+
+<div class="meta">
+
+<strong>{{aggregate[0]}} / 10</strong> •
+{{aggregate[2]}} •
+{{aggregate[3]}} Review(s)
+
+</div>
+
+</div>
 
 {% else %}
 
-<h2>Trending</h2>
+<div class="meta">No reviews yet</div>
 
-<div class="rail">
-  <button class="arrow left" onclick="slide(-1)">❮</button>
+{% endif %}
 
-  <div class="track" id="track">
-    {% for m in home %}
-      <a href="{{ url_for('movie_detail', imdb_id=m.imdbID) }}" class="card">
-        <img src="{{m.Poster}}" loading="lazy">
-        <div class="title">{{m.Title}}</div>
-      </a>
-    {% endfor %}
-  </div>
 
-  <button class="arrow right" onclick="slide(1)">❯</button>
+<!-- REVIEW FORM -->
+
+{% if current_user.is_authenticated %}
+
+<form method="post">
+
+<textarea
+name="review"
+required
+placeholder="Write your review...">
+</textarea>
+
+<button type="submit">
+Submit Review
+</button>
+
+</form>
+
+{% else %}
+
+<p>
+Please
+<a href="{{ url_for('signin') }}">sign in</a>
+to write a review.
+</p>
+
+{% endif %}
+
 </div>
 
-<script>
-let pos = 0
-function slide(d){
-  const t = document.getElementById("track")
-  pos += d * 420
-  t.scrollTo({left: pos, behavior: "smooth"})
-}
-</script>
+</section>
+
+<!-- =============================
+     BROWSE / SEARCH RESULTS
+============================= -->
+
+{% else %}
+
+{% if searching %}
+
+<h2>Search Results for "{{query}}"</h2>
+
+{% else %}
+
+<h2>Browse Movies</h2>
+
+{% endif %}
+
+
+<div class="movie-grid">
+
+{% for m in home %}
+
+<a
+href="{{ url_for('movie_detail', imdb_id=m.imdbID) }}"
+class="movie-card"
+>
+
+<img src="{{m.Poster}}" loading="lazy">
+
+<h3>{{m.Title}}</h3>
+
+</a>
+
+{% endfor %}
+
+</div>
 
 {% endif %}
 
