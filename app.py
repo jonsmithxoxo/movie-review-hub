@@ -18,7 +18,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///moviehub.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = "super_secret_key"
 
-RECAPTCHA_SECRET_KEY = "6LfrUM4sAAAAAAefyxipousAK3XgCEncmef8r5ut"
+RECAPTCHA_SECRET_KEY = "6LffVs4sAAAAAC8JVpiNyaB2GM21igqa9uHqUnLL"
 
 db = SQLAlchemy(app)
 
