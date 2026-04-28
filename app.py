@@ -101,7 +101,15 @@ if not os.path.exists("rating_model.pkl") or not os.path.exists("vectorizer.pkl"
     raise Exception("Model files missing!")
 
 
-model = joblib.load("rating_model.pkl")
+import joblib
+
+model = None
+
+def get_model():
+    global model
+    if model is None:
+        model = joblib.load("rating_model.pkl")
+    return model
 
 vectorizer = joblib.load("vectorizer.pkl")
 
@@ -224,7 +232,9 @@ def predict_rating(text):
 
     X = vectorizer.transform([text])
 
-    score = model.predict(X)[0]
+    model_instance = get_model()
+
+    score = model_instance.predict(X)[0]
 
     return max(1, min(10, round(score)))
 
@@ -677,7 +687,6 @@ def logout():
 
 
 if __name__ == "__main__":
-
     app.run(debug=True)
 
    
