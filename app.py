@@ -98,8 +98,7 @@ with app.app_context():
 # ---------------- AI MODEL ----------------
 
 if not os.path.exists("rating_model.pkl") or not os.path.exists("vectorizer.pkl"):
-
-    subprocess.run(["python", "train_model.py"])
+    raise Exception("Model files missing!")
 
 
 model = joblib.load("rating_model.pkl")
